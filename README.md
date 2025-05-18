@@ -1,6 +1,6 @@
 # CS:APP 요약 레포지토리
 
-이 레포는 [**Computer Systems: A Programmer’s Perspective (CS:APP)**](https://csapp.cs.cmu.edu/)의 내용을 바탕으로 챕터별 핵심 개념을 정리한 자료 모음입니다.  
+이 레포는 **Computer Systems: A Programmer’s Perspective (CS:APP)**의 내용을 바탕으로 챕터별 핵심 개념을 정리한 자료 모음입니다.  
 단순한 암기에서 벗어나, **시스템의 본질을 이해하는 것**을 목표로 합니다.
 
 ---
