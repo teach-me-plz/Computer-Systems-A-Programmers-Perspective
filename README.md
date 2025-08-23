@@ -1,7 +1,10 @@
 # CS:APP 강의 레포지토리
 
-이 레포는 **Computer Systems: A Programmer’s Perspective (CS:APP)** 의 내용을 바탕으로 챕터별 핵심 개념을 정리한 자료 모음입니다.  
-단순한 암기에서 벗어나, **시스템의 본질을 이해하는 것**을 목표로 합니다.
+이 레포는 teach-me-plz 스터디에서 제가 맡고 있는
+Computer Systems: A Programmer’s Perspective (CS:APP) 강의 자료 모음입니다.
+
+강의 진행을 위해 챕터별 핵심 개념을 정리하고 있으며,
+단순 암기보다는 시스템 동작 원리를 깊이 이해하는 것을 목표로 합니다.
 
 ---
 
