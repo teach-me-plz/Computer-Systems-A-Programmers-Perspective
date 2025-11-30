@@ -95,7 +95,7 @@ fork와 execve로만 만든 간단한 쉘은 문제가 쪼금 있다..
 ### 나머지 시그널은 어떻게 반응(react) 하는지
 - 무시: 아무것도 안함
 - 종료: 프로세스 종료 (시그널에 따라 코어 덤프)
-- 획득(Catch): 사용자 수준 함수인 signal handler 실행
+- 획득(Catch): 사용자 수준 함수인 signal handler 실행
 	- 지난 시간에 다룬 인터럽트와 유사 (제어 흐름에서 잠시 벗어나 핸들러 실행)
 
 ## 펜딩 시그널
@@ -103,7 +103,7 @@ fork와 execve로만 만든 간단한 쉘은 문제가 쪼금 있다..
 a -> b
 b 프로세스가 시작될 때 처리해야하는 시그널 모음
 
-보내졌지만 아직 받지 않은 시그널은 펜딩 시그널이라고 부른다.
+보내졌지만 아직 받지 않은 시그널은 펜딩 시그널이라고 부른다.
 시간상으로 어떤 시점에서, 특정 타입에 대해 최대 한 개의 펜딩 시그널이 존재할 수 있다.
 
 -> 한 아파트(프로세스)에 30개의 우편함이 있고, 커널이 시그널을 보내면 우편함에 들어간다.
@@ -126,7 +126,7 @@ b 프로세스가 시작될 때 처리해야하는 시그널 모음
 
 signal number    | 1 | 2 | 3 | 4 | 5
 pending bits     | O | X | O | O | X
-allowed bits     | O | O | O | X | O     <- 4번 시그널 블록됨
+allowed bits     | O | O | O | X | O     <- 4번 시그널 블록됨
 
 result           | O | X | O | X | X     <- 4번 시그널은 수신되지 않음  
 ```
@@ -157,7 +157,7 @@ ctrl-z도 마찬가지 (SIGSTP)
 - SIGINT - default action은 각 프로세스를 종료하는 것
 - SIGSTP - default action은 각 프로세스를 정지(suspend) 하는것
 
-![[스크린샷 2025-11-15 오후 7.37.23.png]]
+<img width="311" height="313" alt="스크린샷 2025-11-15 오후 7 37 23" src="https://github.com/user-attachments/assets/c1bb6bde-3272-4d0c-8ddf-a08ae911794d" />
 top을 실행 후 sigstp 한 뒤 kill로 프로세스 종료
 
 ### kill 함수 사용
@@ -166,8 +166,11 @@ top을 실행 후 sigstp 한 뒤 kill로 프로세스 종료
 pid에 sig를 보내는 시스템콜 함수
 
 pid > 0  --> 해당 pid를 가진 프로세스에 시그널 전송
+
 pid == 0 --> kill 함수를 호출한 pgid에 있는 모든 프로세스에 전송
+
 pid == -1 --> 시스템 프로세스와 시그널을 보내는 프로세스를 제외한 모든 프로세스에 전송
+
 pid < -1 --> 입력값의 절댓값을 pgid로 가지는 프로세스에 전송
 
 -1을 사용하는 예시
@@ -273,13 +276,14 @@ if (sinal(SIGINT, sigint_handler) == SIG_ERR)
 
 ## 시그널도 동시적이래
 병렬 말고 동시적!!!
-![[스크린샷 2025-11-16 오전 10.28.18.png]]
+<img width="450" height="254" alt="스크린샷 2025-11-16 오전 10 28 18" src="https://github.com/user-attachments/assets/2ee5ada0-72a9-48bc-8a76-c33478fe7ca5" />
+
 
 프로세스 A의 반복문을 실행하는 와중에 프로세스 A의 핸들러도 실행되는 모습을 볼 수 있다.
 
 프로세스 B에서 프로세스 A로 돌아오는 시점에 핸들러가 호출됨 (아까 이야기 했던 '목적지 프로세스가 실행될 때')
 
-![[스크린샷 2025-11-16 오전 10.30.18.png]]
+<img width="590" height="285" alt="스크린샷 2025-11-16 오전 10 30 18" src="https://github.com/user-attachments/assets/4e3afb36-a501-4409-b5e7-327a0a2f2870" />
 핸들러와 메인 코드의 실행 순서
 
 
@@ -405,7 +409,7 @@ int main(void)
 
 요 코드를 실행하고 SIGINT 시그널을 주면
 
-![[스크린샷 2025-11-16 오전 10.10.08.png]]
+<img width="627" height="280" alt="스크린샷 2025-11-16 오전 10 10 08" src="https://github.com/user-attachments/assets/1c4a583e-26c1-4866-a7ad-dc9e5a612c18" />
 
 
 사실 쉽게 데드락이 걸리지는 않음
@@ -457,14 +461,18 @@ ft_printf를 malloc 없이 구현했다면 그것도 핸들러에서 사용 가�
 
 그냥 일반적인 예시를 보자.
 
-![[스크린샷 2025-11-18 오전 1.43.18.png]]
-![[스크린샷 2025-11-18 오전 1.45.38.png]]
+<img width="603" height="331" alt="스크린샷 2025-11-18 오전 1 43 18" src="https://github.com/user-attachments/assets/f29a4852-de34-473c-a6c8-bd86944f43a1" />
+
+<img width="495" height="286" alt="스크린샷 2025-11-18 오전 1 45 38" src="https://github.com/user-attachments/assets/37a597a4-9f54-4366-b7d0-1b901d3c5f7b" />
+
 자식 프로세스가 종료되면 SIGCHLD 시그널이 부모 프로세스로 전송된다.
 이 핸들러는 해당 시그널을 받으면 wait를 해서 자식 프로세스를 수거함.
 
-![[스크린샷 2025-11-18 오전 1.47.30.png]]
+
+<img width="257" height="113" alt="스크린샷 2025-11-18 오전 1 47 30" src="https://github.com/user-attachments/assets/86b29563-3bce-4879-9394-d5b579542685" />
 그런데 
 1. 왜 5개의 자식 프로세스 중에 2개 밖에 수거하지 못했을까?
+
 
 2가지 이유
 1. 시그널은 한번에 하나만 pending 가능
